@@ -10,5 +10,4 @@ class UnitVehicle extends Model
     use HasFactory;
     public $timestamp = false;
     public $table = 'unitvehicles';
-    protected $hidden = ['id_unit'];
 }
