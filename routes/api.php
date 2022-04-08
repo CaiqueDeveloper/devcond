@@ -38,4 +38,31 @@ Route::middleware('auth:api')->group(function(){
     Route::get('/warning', [WarningController::class, 'setWarning']);
     Route::get('/warning/file', [WarningController::class, 'addWarningFile']);
 
+    // Bolletos
+    Route::get('/billets',[BilletController::class, 'getAll']);
+    
+    //Achados e Perdidos
+    Route::post('/foundandlost',[FoundAndLostController::class,'insert']);
+    Route::get('/foundandlost',[FoundAndLostController::class, 'getAll']);
+    Route::put('/foundandlost/{id}', [FoundAndLostController::class ,'update']);
+
+    // Unidade
+    Route::get('/unit/{id}',[UnitController::class, 'getInfoo']);
+    Route::post('/unit/{id}/addperson',[UnitController::class, 'addperson']);
+    Route::post('/unit/{id}/addpet',[UnitController::class, 'addpet']);
+    Route::delete('/unit/{id}/removeperson',[UnitController::class, 'removeperson']);
+    Route::get('/unit/{id}/removepet',[UnitController::class, 'removepet']);
+
+    //Reservas
+    Route::get('/reservations', [ReservationController::class, 'getResevation']);
+    Route::post('/resevation/{id}', [ReservationController::class, 'setResevations']);
+
+    Route::get('/resavation/{id}/disableddates', [ReservationController::class, 'getDisableddates']);
+    Route::get('/resavation/{id}/times', [ReservationController::class, 'getTimes']);
+
+    Route::get('/myresevations/{id}', [ReservationController::class, 'getMyresevations']);
+    Route::delete('/myresevations/{id}', [ReservationController::class, 'deleteMyresevations']);
+    
+    
+
 });
