@@ -53,4 +53,32 @@ class AuthController extends Controller
 
         return $array;
     }
+
+    public function login(Request $request){
+        $array = ['error' => ''];
+
+        $validator = Validator::make($request->all(), [
+            'cpf' => 'required|digits:11',
+            'password' => 'required'
+        ]);
+
+        if($validator->fails()){
+            return $array['validatorErrors'] = $validator->errors()->first();
+        }
+
+        $token = auth()->attempt([
+            'cpf' => $request->input('cpf'),
+            'password' => $request->input('password'),
+        ]);
+
+        if(!$token){
+           return $array['internalError'] = 'Ocorreu um erro interno.';
+        }
+
+        $array['user'] = auth()->user();
+        $array['user']['porperties'] = Unit::select('id', 'name')->where('id_woner', auth()->user()->id);
+        $array['token'] = $token;
+
+        return $array;
+    }
 }
